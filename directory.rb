@@ -13,8 +13,8 @@ students = [
   {name: "Norman Bates", cohort: :november}
 ]
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(40)
+  puts "-------------".center(40)
 end
 def print(students)
   puts "Enter a letter to show only those matching students"
@@ -23,7 +23,7 @@ def print(students)
   max_length = gets.chomp
   students.each_with_index do |student,index|
     if student[:name][0].downcase == initial.downcase && student[:name].length <= max_length.to_i
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort.  Hobbies are #{student[:hobbies]} and they are from #{student[:country]})"
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort.  Hobbies are #{student[:hobbies]} and they are from #{student[:country]})".center(40)
     end
   end
 end
@@ -48,7 +48,7 @@ def input_students
     #add the student has to the array
     # students << {name: name, cohort: cohort, hobbies: hobbies, country: country}
     students << {:name => name, :cohort => cohort, :hobbies => hobbies, :country => country}
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} students".center(40)
     # get another name from the user
     puts "name?"
     name = gets.chomp
