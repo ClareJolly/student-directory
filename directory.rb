@@ -23,7 +23,7 @@ def print(students)
   max_length = gets.chomp
   students.each_with_index do |student,index|
     if student[:name][0].downcase == initial.downcase && student[:name].length <= max_length.to_i
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort.  Hobbies are #{student[:hobbies]} and they are from #{student[:country]})"
     end
   end
 end
@@ -35,15 +35,31 @@ def input_students
   puts "To finish, just hit return twice"
   # create an empty array
   students = []
-  # get the first name
+  # get the student details
   name = gets.chomp
+  puts "cohort?"
+  cohort = gets.chomp
+  puts "hobbies?"
+  hobbies = gets.chomp
+  puts "country of birth?"
+  country = gets.chomp
   # while the name is not empty, repeat this code
   until name.empty? do
     #add the student has to the array
-    students << {name: name, cohort: :november}
+    # students << {name: name, cohort: cohort, hobbies: hobbies, country: country}
+    students << {:name => name, :cohort => cohort, :hobbies => hobbies, :country => country}
     puts "Now we have #{students.count} students"
     # get another name from the user
+    puts "name?"
     name = gets.chomp
+      if !name.empty?
+        puts "cohort?"
+        cohort = gets.chomp
+        puts "hobbies?"
+        hobbies = gets.chomp
+        puts "country of birth?"
+        country = gets.chomp
+      end
   end
   # return the array of input_students
   students
