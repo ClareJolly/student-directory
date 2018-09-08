@@ -1,21 +1,22 @@
 # lets put all the students into an array
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleone", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
-  {name: "Norman Bates", cohort: :november}
-]
+# students = [
+#   {name: "Dr. Hannibal Lecter", cohort: :november},
+#   {name: "Darth Vader", cohort: :november},
+#   {name: "Nurse Ratched", cohort: :november},
+#   {name: "Michael Corleone", cohort: :november},
+#   {name: "Alex DeLarge", cohort: :november},
+#   {name: "The Wicked Witch of the West", cohort: :november},
+#   {name: "Terminator", cohort: :november},
+#   {name: "Freddy Krueger", cohort: :november},
+#   {name: "The Joker", cohort: :november},
+#   {name: "Joffrey Baratheon", cohort: :november},
+#   {name: "Norman Bates", cohort: :november}
+# ]
 def print_header
   puts "The students of Villains Academy".center(40)
   puts "-------------".center(40)
 end
+
 def print(students)
   puts "Enter a letter to show only those matching students"
   initial = gets.chomp
@@ -27,28 +28,20 @@ def print(students)
     end
   end
 end
+
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  plural = ""
+  plural = "s" if names.count > 1
+  puts "Overall, we have #{names.count} great student#{plural}"
 end
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
   students = []
-  cohorts = [
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
-    "july",
-    "august",
-    "september",
-    "october",
-    "november",
-    "december"
-  ]
+  cohorts = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+  plural = ""
   # get the student details
   name = gets.chomp
   puts "cohort?"
@@ -65,7 +58,8 @@ def input_students
     #add the student has to the array
     # students << {name: name, cohort: cohort, hobbies: hobbies, country: country}
     students << {:name => name, :cohort => cohort.to_sym, :hobbies => hobbies, :country => country}
-    puts "Now we have #{students.count} students".center(40)
+    plural = "s" if students.count > 1
+    puts "Now we have #{students.count} student#{plural}".center(40)
     # get another name from the user
     puts "name?"
     name = gets.chomp
