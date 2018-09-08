@@ -35,11 +35,25 @@ def input_students
   puts "To finish, just hit return twice"
   # create an empty array
   students = []
+  cohorts = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december"
+  ]
   # get the student details
   name = gets.chomp
   puts "cohort?"
   cohort = gets.chomp
-  if cohort.empty?
+  if cohort.empty? || !cohorts.include?(cohort.downcase)
     cohort = "November"
   end
   puts "hobbies?"
@@ -50,7 +64,7 @@ def input_students
   until name.empty? do
     #add the student has to the array
     # students << {name: name, cohort: cohort, hobbies: hobbies, country: country}
-    students << {:name => name, :cohort => cohort, :hobbies => hobbies, :country => country}
+    students << {:name => name, :cohort => cohort.to_sym, :hobbies => hobbies, :country => country}
     puts "Now we have #{students.count} students".center(40)
     # get another name from the user
     puts "name?"
