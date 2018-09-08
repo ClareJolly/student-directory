@@ -17,8 +17,12 @@ def print_header
   puts "-------------"
 end
 def print(students)
+  puts "Enter a letter to show only those matching students"
+  initial = gets.chomp
   students.each_with_index do |student,index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    if student[:name][0].downcase == initial.downcase
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 def print_footer(names)
