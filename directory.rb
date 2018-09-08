@@ -38,7 +38,7 @@ def input_students
   # get the first name
   name = gets.chomp
   # while the name is not empty, repeat this code
-  while !name.empty? do
+  until name.empty? do
     #add the student has to the array
     students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
