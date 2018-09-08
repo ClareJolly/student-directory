@@ -19,8 +19,10 @@ end
 def print(students)
   puts "Enter a letter to show only those matching students"
   initial = gets.chomp
+  puts "Enter the max length of their name"
+  max_length = gets.chomp
   students.each_with_index do |student,index|
-    if student[:name][0].downcase == initial.downcase
+    if student[:name][0].downcase == initial.downcase && student[:name].length <= max_length.to_i
       puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
