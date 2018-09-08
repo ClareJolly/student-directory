@@ -39,6 +39,9 @@ def input_students
   name = gets.chomp
   puts "cohort?"
   cohort = gets.chomp
+  if cohort.empty?
+    cohort = "November"
+  end
   puts "hobbies?"
   hobbies = gets.chomp
   puts "country of birth?"
@@ -55,6 +58,9 @@ def input_students
       if !name.empty?
         puts "cohort?"
         cohort = gets.chomp
+        if cohort.empty?
+          cohort = "November"
+        end
         puts "hobbies?"
         hobbies = gets.chomp
         puts "country of birth?"
