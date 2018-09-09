@@ -44,15 +44,17 @@ def input_students
   plural = ""
   # get the student details
   name = gets.chomp
-  puts "cohort?"
-  cohort = gets.chomp
-  if cohort.empty? || !cohorts.include?(cohort.downcase)
-    cohort = "November"
+  if !name.empty?
+    puts "cohort?"
+    cohort = gets.chomp
+    if cohort.empty? || !cohorts.include?(cohort.downcase)
+      cohort = "November"
+    end
+    puts "hobbies?"
+    hobbies = gets.chomp
+    puts "country of birth?"
+    country = gets.chomp
   end
-  puts "hobbies?"
-  hobbies = gets.chomp
-  puts "country of birth?"
-  country = gets.chomp
   # while the name is not empty, repeat this code
   until name.empty? do
     #add the student has to the array
@@ -80,6 +82,10 @@ def input_students
 end
 # nothing happens until we call the methods.
 students = input_students
-print_header
-print(students)
-print_footer(students)
+if students.count > 0
+  print_header
+  print(students)
+  print_footer(students)
+else
+  puts "No Students :-("
+end
