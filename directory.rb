@@ -22,9 +22,21 @@ def print(students)
   initial = gets.chomp
   puts "Enter the max length of their name"
   max_length = gets.chomp
-  students.each_with_index do |student,index|
-    if student[:name][0].downcase == initial.downcase && student[:name].length <= max_length.to_i
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort.  Hobbies are #{student[:hobbies]} and they are from #{student[:country]})".center(40)
+  cohorts_mapper = students.map { |c| c[:cohort] }.uniq
+  cohorts_mapper.each do |cohort_to_list|
+    puts "Cohort: #{cohort_to_list}"
+    matchingstudents = 0
+    students.each_with_index do |student,index|
+      if student[:cohort] == cohort_to_list
+        if student[:name][0].downcase == initial.downcase && student[:name].length <= max_length.to_i
+          puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort.  Hobbies are #{student[:hobbies]} and they are from #{student[:country]})".center(40)
+          matchingstudents += 1
+        end
+      end
+
+    end
+    if matchingstudents == 0
+      puts "None matching in this cohort"
     end
   end
 end
