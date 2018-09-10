@@ -92,6 +92,14 @@ def input_students
   # return the array of input_students
   students
 end
+
+def interactive_menu
+  # 1. print the menu and ask the user what to do
+  # 2. read the input and save it into a variable
+  # 3. do what the user has asked
+  # 4. repear from step 1
+end
+
 # nothing happens until we call the methods.
 students = input_students
 if students.count > 0
