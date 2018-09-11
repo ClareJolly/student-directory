@@ -63,8 +63,10 @@ def print_footer
 end
 
 def save_students
+    puts "Enter the filename you want to use"
+    filename = STDIN.gets.chomp
     # open the file for writing
-    file = File.open("students.csv", "w")
+    file = File.open(filename, "w")
     # iterate over the array of students
     @students.each do |student|
       student_data = [student[:name],student[:cohort]]
