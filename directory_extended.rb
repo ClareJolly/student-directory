@@ -8,8 +8,6 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    # cohort = "november"
-    # @students << {name: name, cohort: :november}
     write_to_array(name, cohort="november")
     puts "Now we have #{@students.count} students"
     # get another name from the user
@@ -20,7 +18,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(STDIN.gets.chomp)
+    process_menu_selection(STDIN.gets.chomp)
   end
 end
 
@@ -38,20 +36,14 @@ def show_students
   print_footer
 end
 
-def process(selection)
+def process_menu_selection(selection)
   case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit # this will cause the program to terminate
-  else
-    puts "I don't know what you meant, try again"
+    when "1" then input_students
+    when "2" then show_students
+    when "3" then save_students
+    when "4" then load_students
+    when "9" then exit # this will cause the program to terminate
+    else puts "I don't know what you meant, try again"
   end
 end
 
@@ -87,14 +79,12 @@ def load_students(filename = "students.csv")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     write_to_array(name, cohort)
-    # @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
 
 def try_load_students
-  filename = ARGV.first # first argument from the command line
-  filename = "students.csv" if filename.nil? # use the detauls if it isn't given
+  ARGV.first.nil? ? filename = "students.csv" : filename = ARGV.first
   if File.exists?(filename) # if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
