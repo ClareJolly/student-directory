@@ -17,6 +17,9 @@ def interactive_menu
 end
 
 def print_menu
+  puts "-------------"
+  puts "STUDENT DIRECTORY: MAIN MENU"
+  puts "-------------"
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
@@ -79,19 +82,37 @@ def save_students
         csv << [student[:name],student[:cohort]]
       end
     end
+    puts "Details saved to #{filename}"
+    record_last_save(filename)
 end
 
-def load_students(filename = "students.csv")
+def record_last_save(filename)
+  file = File.open("last_save", "w")
+    file.puts filename
+  file.close
+end
+
+def read_last_save
+  file = File.open("last_save", "r")
+  file.readlines.each do |line|
+  filename = line.chomp
+  return filename
+  end
+  file.close
+end
+
+def load_students(filename = "students.csv",startup)
   CSV.foreach(filename) do |row|
     name, cohort = row
     write_to_array(name,cohort)
   end
+  puts "Details loaded from #{filename}" if !startup
 end
 
 def try_load_students
   ARGV.first.nil? ? filename = "students.csv" : filename = ARGV.first
   if File.exists?(filename) # if it exists
-    load_students(filename)
+    load_students(filename,true)
     puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist"
