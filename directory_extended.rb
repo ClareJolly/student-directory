@@ -4,9 +4,9 @@
 # 4. Right now, when the user choses an option from our menu, theres no way of them knowing if the action was successful. Can you fix this and implement feedback messages for the user?
 # 5. The filename we use to save and load data (menu items 3 and 4) is hardcoded. Make the script more flexible by asking for the filename if the user chooses these menu items.
 ### 6. DONE We are opening and closing the files manually. Read the documentation of the File class to find out how to use a code block (do...end) to access a file, so that we didn't have to close it explicitly (it will be closed automatically when the block finishes). Refactor the code to use a code block.
-# 7. We are de-facto using CSV format to store data. However, Ruby includes a library to work with the CSV files that we could use instead of working directly with the files. Refactor the code to use this library.
+### 7. DONE We are de-facto using CSV format to store data. However, Ruby includes a library to work with the CSV files that we could use instead of working directly with the files. Refactor the code to use this library.
 ### 8. DONE Write a short program that reads its own source code (search StackOverflow to find out how to get the name of the currently executed file) and prints it on the screen.
-
+require "csv.rb"
 @students = [] # an empty array accessible to all methods
 
 def input_students
@@ -74,26 +74,18 @@ end
 def save_students
     puts "Enter the filename you want to use"
     filename = STDIN.gets.chomp
-    # open the file for writing
-    file = File.open(filename, "w") do |file|
-      # iterate over the array of students
+    CSV.open(filename, "wb") do |csv|
       @students.each do |student|
-        student_data = [student[:name],student[:cohort]]
-        csv_line = student_data.join(",")
-        file.puts csv_line
+        csv << [student[:name],student[:cohort]]
       end
     end
-    # file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      write_to_array(name, cohort)
-    end
+  CSV.foreach(filename) do |row|
+    name, cohort = row
+    write_to_array(name,cohort)
   end
-  # file.close
 end
 
 def try_load_students
