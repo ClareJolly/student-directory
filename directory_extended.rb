@@ -5,7 +5,7 @@
 # 5. The filename we use to save and load data (menu items 3 and 4) is hardcoded. Make the script more flexible by asking for the filename if the user chooses these menu items.
 ### 6. DONE We are opening and closing the files manually. Read the documentation of the File class to find out how to use a code block (do...end) to access a file, so that we didn't have to close it explicitly (it will be closed automatically when the block finishes). Refactor the code to use a code block.
 # 7. We are de-facto using CSV format to store data. However, Ruby includes a library to work with the CSV files that we could use instead of working directly with the files. Refactor the code to use this library.
-# 8. Write a short program that reads its own source code (search StackOverflow to find out how to get the name of the currently executed file) and prints it on the screen.
+### 8. DONE Write a short program that reads its own source code (search StackOverflow to find out how to get the name of the currently executed file) and prints it on the screen.
 
 @students = [] # an empty array accessible to all methods
 
@@ -110,7 +110,6 @@ end
 def write_to_array(name,cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
-
 
 try_load_students
 interactive_menu
