@@ -95,8 +95,8 @@ end
 def read_last_save
   file = File.open("last_save", "r")
   file.readlines.each do |line|
-  filename = line.chomp
-  return filename
+    filename = line.chomp
+    return filename
   end
   file.close
 end
