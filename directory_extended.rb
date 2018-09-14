@@ -87,18 +87,20 @@ def save_students
 end
 
 def record_last_save(filename)
-  file = File.open("last_save", "w")
+  #file = File.open("last_save", "w")
+  file = File.open("last_save", "w") do |file|
     file.puts filename
-  file.close
+  end
+  #file.close
 end
 
 def read_last_save
-  file = File.open("last_save", "r")
-  file.readlines.each do |line|
-    filename = line.chomp
-    return filename
+  file = File.open("last_save", "r") do |file|
+    file.readlines.each do |line|
+      filename = line.chomp
+      return filename
+    end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv",startup)
