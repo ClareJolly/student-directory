@@ -22,8 +22,8 @@ def print_menu
   puts "-------------"
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to csv"
+  puts "4. Load the list from csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -75,8 +75,9 @@ def show_students
 end
 
 def save_students
-    puts "Enter the filename you want to use"
-    filename = STDIN.gets.chomp
+    # puts "Enter the filename you want to use"
+    # filename = STDIN.gets.chomp
+    filename = use_last_save("s")
     CSV.open(filename, "wb") do |csv|
       @students.each do |student|
         csv << [student[:name],student[:cohort]]
@@ -103,18 +104,51 @@ def read_last_save
   end
 end
 
-def load_students(filename = "students.csv",startup)
+def choose_filename(action)
+  case action
+    when "l" then action = "load from"
+    when "s" then action = "save to"
+  end
+  puts "Enter a filename to #{action} or press Return to use default"
+  filename = gets.chomp
+  filename = "students.csv" if filename == ""
+  puts filename
+  return filename
+end
+
+def use_last_save(action)
+  if !read_last_save.nil?
+    puts "Use #{read_last_save}? Y or N"
+    use_last = STDIN.gets.chomp
+    case use_last.downcase
+    when "y" then filename = read_last_save
+    when "n" then filename = choose_filename(action)
+    else
+      puts "I didn't understand so I will use the default"
+      filename = choose_filename(action)
+    end
+    return filename
+  end
+end
+
+def load_students
+  filename = use_last_save("l") if filename.nil?
   CSV.foreach(filename) do |row|
     name, cohort = row
     write_to_array(name,cohort)
   end
-  puts "Details loaded from #{filename}" if !startup
+  # puts "Details loaded from #{filename}" if !startup
 end
 
 def try_load_students
-  ARGV.first.nil? ? filename = "students.csv" : filename = ARGV.first
+  if ARGV.first.nil?
+    filename = use_last_save("l")
+  else
+    filename = ARGV.first
+  end
   if File.exists?(filename) # if it exists
-    load_students(filename,true)
+    # load_students(filename)
+    load_students
     puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist"
